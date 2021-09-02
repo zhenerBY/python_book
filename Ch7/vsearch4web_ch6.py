@@ -1,9 +1,8 @@
-
 from flask import Flask, render_template, request, escape
 from vsearch import search4letters
 
-
 app = Flask(__name__)
+
 
 def log_request(req: 'flask_request', res: str) -> None:
     dbconfig = {'host': '127.0.0.1',
@@ -26,6 +25,7 @@ def log_request(req: 'flask_request', res: str) -> None:
     cursor.close()
     conn.close()
 
+
 @app.route('/search4', methods=['POST'])
 def do_search() -> 'html':
     phrase = request.form['phrase']
@@ -37,7 +37,7 @@ def do_search() -> 'html':
                            the_title=title,
                            the_phrase=phrase,
                            the_letters=letters,
-                           the_results=results,)
+                           the_results=results, )
 
 
 @app.route('/')
@@ -45,6 +45,7 @@ def do_search() -> 'html':
 def entry_page() -> 'html':
     return render_template('entry.html',
                            the_title='Welcome to search4letters on the web!')
+
 
 @app.route('/viewlog')
 def view_the_log() -> str:
@@ -58,6 +59,5 @@ def view_the_log() -> str:
 
 
 if __name__ == '__main__':
-##    app.run(debug=True)
+    #    app.run(debug=True)
     app.run()
-
